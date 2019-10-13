@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<f:metadata>
+    <f:viewAction onPostback="false" action="#{editProductViewBean.init}"/>
+</f:metadata>
+
+<ui:composition>
+    <h:head>
+        <title>ویرایش محصول</title>
+
+
+        <h:outputStylesheet library="css" name="style.css"/>
+        <ui:include src="/menu.xhtml" />
+
+    </h:head>
+    <h:body style="direction: rtl">
+        <div class="ui-g-3"></div>
+
+        <p:fieldset legend="ویرایش محصول" style="margin-bottom:30px" class="ui-g-6">
+            <h:form id="addForm">
+                <p:messages autoUpdate="true" globalOnly="false" id="messages" closable="true" />
+                <p:fieldset legend="جستجوی محصول">
+                    <p:panel styleClass="searchBox">
+                        <p:panelGrid id="productAdd" columns="4" columnsWidth="2,4,2,4" styleClass="ui-noborder">
+                            <p:outputLabel value="کد محصول:" style="margin-left: 5px;"/>
+                            <p:inputText value="#{editProductViewBean.productCode}" id="nameSearch"/>
+
+
+                            <p:commandButton id="searchButton" value="جستجو"
+                                             actionListener="#{editProductViewBean.searchProduct}"
+                                             update="@form">
+                                <p:ajax event="dialogReturn" listener="#{editProductViewBean.onProductSelected}"
+                                        update="@form"/>
+
+                            </p:commandButton>
+
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:spacer height="10"/>
+                </p:fieldset>
+
+                <p:spacer height="10"/>
+
+                <p:panel styleClass="searchBox">
+                <p:panelGrid id="productEdit" columns="2" columnsWidth="2,4" styleClass="ui-noborder" >
+                    <p:outputLabel value="نام بانک:"/>
+                    <p:inputText  value="#{editProductViewBean.bankName}" readonly="true"/>
+
+                    <p:outputLabel value="* نام محصول:"/>
+                    <p:inputText  value="#{editProductViewBean.selectedProduct.productName}"/>
+
+
+                    <p:outputLabel value="* نوع محصول:"/>
+                    <h:selectOneMenu id="typeProduct" value="#{editProductViewBean.selectedProduct.productType}" style="width:310px" filter="true" filterMatchMode="contains">
+                        <f:selectItems
+                                value="#{insertProductViewBean.productTypes}"
+                                var="productTypes"
+                                itemLabel="#{productTypes.value}" itemValue="#{productTypes}"/>
+                        <p:ajax update="borrowType fundType"
+                                execute="@this"/>
+                    </h:selectOneMenu>
+
+                    <p:outputLabel value="* قرض الحسنه:"/>
+                    <h:selectOneMenu id="borrowType" value="#{editProductViewBean.selectedProduct.borrowType}"
+                                     style="width:310px" filter="true"
+                                     disabled="#{!editProductViewBean.selectedProduct.productType.name().equals('BORROW')}">
+                        <f:selectItems
+                                value="#{insertProductViewBean.borrowTypes}"
+                                var="borrowTypes"
+                                itemLabel="#{borrowTypes.value}" itemValue="#{borrowTypes}"/>
+                    </h:selectOneMenu>
+
+                    <p:outputLabel value="* سرمایه گذاری:"/>
+                    <h:selectOneMenu id="fundType" value="#{editProductViewBean.selectedProduct.fundType}"
+                                     style="width:310px" filter="true" filterMatchMode="contains"
+                                     disabled="#{!editProductViewBean.selectedProduct.productType.name().equals('FUND')}">
+
+                        <f:selectItems
+                                value="#{editProductViewBean.fundTypes}"
+                                var="fundTypes"
+                                itemLabel="#{fundTypes.value}" itemValue="#{fundTypes}"/>
+                    </h:selectOneMenu>
+
+                    <p:outputLabel value="* توضیحات:"/>
+                    <p:inputTextarea rows="6" cols="33" value="#{editProductViewBean.selectedProduct.description}"/>
+
+
+
+                </p:panelGrid>
+                </p:panel>
+                <p:spacer height="5"/>
+                <p:panel styleClass="buttonBox">
+                    <p:commandButton value="ویرایش" action="#{editProductViewBean.edit}"
+                                     update=":addForm"
+                    >
+                    </p:commandButton>
+                    <p:commandButton value="حذف" action="#{editProductViewBean.delete}"
+                                     update=":addForm"
+                    >
+                    </p:commandButton>
+                </p:panel>
+            </h:form>
+        </p:fieldset>
+
+        <div class="ui-g-3"></div>
+    </h:body>
+</ui:composition>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<f:metadata>
+    <f:viewAction onPostback="false" action="#{searchBank.init}"/>
+</f:metadata>
+<ui:composition template="../../templates/dialogTemplate.xhtml">
+    <ui:define name="title">
+        <title>جستجوی بانک</title>
+    </ui:define>
+
+    <ui:define name="maincontent">
+        <p:scrollPanel mode="native" style="height: 280px; border: none; padding: 5px ; direction: rtl">
+            <p:messages autoUpdate="true" globalOnly="false" id="messages"/>
+            <h:form id="addForm">
+                <p:fieldset legend="مشخصات بانک">
+                    <p:panelGrid id="productEdit" columns="2" columnsWidth="2,4" styleClass="ui-noborder">
+                        <p:outputLabel value=" نام/مخفف بانک:" style="margin-left: 5px;"/>
+                        <p:inputText value="#{searchBank.bankName}"/>
+
+                    </p:panelGrid>
+                    <p:spacer height="3"/>
+                    <p:panel styleClass="buttonBox">
+                        <p:commandButton value="جستجو"
+                                         actionListener="#{searchBank.searchBank}"
+                                         process="@form"  update="foundBankTbl"/>
+                    </p:panel>
+
+                    <p:spacer height="3"/>
+
+                    <p:dataTable style="margin-bottom: 10px" id="foundBankTbl"
+                                 value="#{searchBank.banks}"
+                                 var="banks" selectionMode="single"
+                                 selection="#{searchBank.selectedBank}"
+                                 rowKey="#{banks.hashCode()}"
+                                 emptyMessage="سطری برای نمایش وجود ندارد"
+                                 rowIndexVar="rowIndex"
+                                 rows="10"
+                                 widgetVar="foundBankTbl">
+                        <f:facet name="header">
+                            <h:outputText value="نتایج جستجو"/>
+                        </f:facet>
+                        <p:ajax event="rowDblselect" listener="#{searchBank.onFoundBankTableRowDbClick}"/>
+                        <p:column headerText="ردیف" width="30">
+                            <h:outputText value="#{rowIndex+1}"/>
+                        </p:column>
+                        <p:column headerText="نام بانک">
+                            <h:outputText value="#{banks.name}"/>
+                        </p:column>
+                        <p:column headerText="مخفف">
+                            <h:outputText value="#{banks.nameAbbreviation}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:panel styleClass="buttonBox">
+                        <p:commandButton value="انتخاب" actionListener="#{searchBank.selectBank()}"
+                                         process=""/>
+                        <p:commandButton value="انصراف" actionListener="#{searchBank.close}"
+                                         process="@this"/>
+                    </p:panel>
+                </p:fieldset>
+
+            </h:form>
+        </p:scrollPanel>
+    </ui:define>
+</ui:composition>
+</html>

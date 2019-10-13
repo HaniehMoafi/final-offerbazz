@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<ui:composition>
+    <h:head>
+        <title>ثبت نام</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <ui:include src="/menu.xhtml" />
+    </h:head>
+    <h:body style="direction: rtl">
+        <div class="ui-g-3"></div>
+
+        <p:fieldset legend="ثبت نام" style="margin-bottom:30px" class="ui-g-6">
+            <h:form id="registerForm">
+                <p:fieldset legend="مشخصات کاربر" style="margin-bottom:20px">
+
+                    <p:messages autoUpdate="true" globalOnly="false" id="messages" closable="true" />
+                    <p:panelGrid id="registerUser" columns="2" columnsWidth="2,4" styleClass="ui-noborder">
+                        <p:outputLabel value="شماره موبایل:"/>
+                        <p:inputText id="userName" required="true" rows="2" cols="33" value="#{registerUserViewBean.userName}" validatorMessage="شماره موبایل خود را به درستی وارد کنید" >
+                            <f:validateRegex pattern="\d{11}" />
+                        </p:inputText>
+
+                        <p:outputLabel value="رمز عبور:"/>
+                        <p:password id="password" required="true" rows="2" cols="33" value="#{registerUserViewBean.password}" validatorMessage="رمز عبور شما باید حداقل شش و حداکثر بیست کاراکتر متشکل از عدد و حروف باشد">
+                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z]).{6,20})" />
+                        </p:password>
+                    </p:panelGrid>
+                    <p:spacer height="5"/>
+                    <p:panel styleClass="buttonBox">
+                        <p:commandButton value="ثبت" actionListener="#{registerUserViewBean.register}"
+                                         update=":registerForm">
+                        </p:commandButton>
+                    </p:panel>
+
+                </p:fieldset>
+            </h:form>
+        </p:fieldset>
+
+        <div class="ui-g-3"></div>
+    </h:body>
+</ui:composition>
+</html>

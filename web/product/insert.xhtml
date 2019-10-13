@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<f:metadata>
+    <f:viewAction onPostback="false" action="#{insertProductViewBean.init}"/>
+</f:metadata>
+
+<ui:composition>
+    <h:head>
+        <title>تعریف محصول</title>
+
+
+        <h:outputStylesheet library="css" name="style.css"/>
+        <ui:include src="/menu.xhtml" />
+
+
+    </h:head>
+    <h:body style="direction: rtl">
+        <div class="ui-g-3"></div>
+
+        <p:fieldset legend="تعریف محصول" style="margin-bottom:30px" class="ui-g-6">
+            <h:form id="addForm">
+                <p:messages autoUpdate="true" globalOnly="false" id="messages" closable="true" />
+
+
+                <p:fieldset legend="مشخصات محصول" style="margin-bottom:20px" >
+
+                    <p:panelGrid id="productAdd" columns="2" columnsWidth="2,4" styleClass="ui-noborder" >
+                        <p:outputLabel value="* نام بانک:"/>
+                        <h:selectOneMenu id="test" value="#{insertProductViewBean.bankId}" style="width:310px" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="بانک را انتخاب کنید" itemValue="" noSelectionOption="true" />
+                            <f:selectItems var="bank" value="#{insertProductViewBean.bankDTOS}"  itemLabel="#{bank.name}" itemValue="#{bank.id}"/>
+                            <f:ajax listener="#{insertProductViewBean.findBank()}"
+                                    execute="@this"/>
+                        </h:selectOneMenu>
+
+
+                        <p:outputLabel value="* نام محصول:"/>
+                        <p:inputText  value="#{insertProductViewBean.productDTO.productName}"/>
+
+                        <p:outputLabel value="* نوع محصول:"/>
+                        <h:selectOneMenu id="typeProduct" value="#{insertProductViewBean.productDTO.productType}" style="width:310px" filter="true" filterMatchMode="contains">
+                            <f:selectItems
+                                    value="#{insertProductViewBean.productTypes}"
+                                    var="productTypes"
+                                    itemLabel="#{productTypes.value}" itemValue="#{productTypes}"/>
+                            <p:ajax update="borrowType fundType"
+                                    execute="@this"/>
+                        </h:selectOneMenu>
+
+                        <p:outputLabel value="* قرض الحسنه:"/>
+                        <h:selectOneMenu id="borrowType" value="#{insertProductViewBean.productDTO.borrowType}"
+                                         style="width:310px" filter="true"
+                            disabled="#{!insertProductViewBean.productDTO.productType.name().equals('BORROW')}">
+                        <f:selectItems
+                                value="#{insertProductViewBean.borrowTypes}"
+                                var="borrowTypes"
+                                itemLabel="#{borrowTypes.value}" itemValue="#{borrowTypes}"/>
+                        </h:selectOneMenu>
+
+                        <p:outputLabel value="* سرمایه گذاری:"/>
+                        <h:selectOneMenu id="fundType" value="#{insertProductViewBean.productDTO.fundType}"
+                                         style="width:310px" filter="true" filterMatchMode="contains"
+                            disabled="#{!insertProductViewBean.productDTO.productType.name().equals('FUND')}">
+
+                            <f:selectItems
+                                    value="#{insertProductViewBean.fundTypes}"
+                                    var="fundTypes"
+                                    itemLabel="#{fundTypes.value}" itemValue="#{fundTypes}"/>
+                        </h:selectOneMenu>
+
+                        <p:outputLabel value="* توضیحات:"/>
+                        <p:inputTextarea rows="6" cols="33" value="#{insertProductViewBean.productDTO.description}"/>
+
+
+
+                    </p:panelGrid>
+                    <p:spacer height="5"/>
+
+                    <p:panel styleClass="buttonBox">
+                        <p:commandButton value="تایید" actionListener="#{insertProductViewBean.insert}"
+                                         update=":addForm">
+
+                        </p:commandButton>
+                    </p:panel>
+
+                </p:fieldset>
+            </h:form>
+        </p:fieldset>
+
+        <div class="ui-g-3"></div>
+    </h:body>
+</ui:composition>
+</html>
