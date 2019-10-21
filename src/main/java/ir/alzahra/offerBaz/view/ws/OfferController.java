@@ -1,9 +1,6 @@
 package ir.alzahra.offerBaz.view.ws;
 
-import ir.alzahra.offerBaz.dto.BankDTO;
-import ir.alzahra.offerBaz.dto.MultiWrapperDto;
-import ir.alzahra.offerBaz.dto.ProductDTO;
-import ir.alzahra.offerBaz.dto.ResponseDTO;
+import ir.alzahra.offerBaz.dto.*;
 import ir.alzahra.offerBaz.dto.searchParameter.ProductSearchParam;
 import ir.alzahra.offerBaz.enums.ProductType;
 import ir.alzahra.offerBaz.enums.ResponseStatus;
@@ -130,5 +127,12 @@ public class OfferController {
 
     }
 
+
+    @RequestMapping(method = RequestMethod.POST, value = "/request/insertRequest")
+    ResponseEntity<ResponseDTO> insertOfferRequest(@RequestBody OfferRequestDTO offerRequestDTO) throws BaseException {
+        offerFacade.insertOfferRequest(offerRequestDTO);
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
 
 }

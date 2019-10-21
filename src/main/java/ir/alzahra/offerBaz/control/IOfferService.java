@@ -4,6 +4,7 @@ package ir.alzahra.offerBaz.control;
 import ir.alzahra.offerBaz.dto.searchParameter.ProductSearchParam;
 import ir.alzahra.offerBaz.exception.BaseException;
 import ir.alzahra.offerBaz.model.entity.BankEntity;
+import ir.alzahra.offerBaz.model.entity.OfferRequestEntity;
 import ir.alzahra.offerBaz.model.entity.ProductEntity;
 
 import java.util.List;
@@ -44,4 +45,6 @@ public interface IOfferService {
     void checkExistProduct(String name)throws BaseException;
 
     void editBankInfo(BankEntity bankEntity)throws BaseException;
+
+    void insetOfferRequest(OfferRequestEntity offerRequestEntity)throws BaseException;
 }

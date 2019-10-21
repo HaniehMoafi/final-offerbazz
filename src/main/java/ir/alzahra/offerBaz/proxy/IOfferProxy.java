@@ -1,6 +1,7 @@
 package ir.alzahra.offerBaz.proxy;
 
 import ir.alzahra.offerBaz.dto.BankDTO;
+import ir.alzahra.offerBaz.dto.OfferRequestDTO;
 import ir.alzahra.offerBaz.dto.ProductDTO;
 import ir.alzahra.offerBaz.dto.searchParameter.ProductSearchParam;
 import ir.alzahra.offerBaz.enums.ProductType;
@@ -38,4 +39,6 @@ public interface IOfferProxy {
     void editBankInfo(BankDTO bankDTO) throws BaseException;
 
     void deleteBank(BankDTO bankDTO)throws BaseException;
+
+    void insertRequest(OfferRequestDTO offerRequestDTO) throws BaseException;
 }

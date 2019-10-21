@@ -1,5 +1,6 @@
 package ir.alzahra.offerBaz.facade;
 import ir.alzahra.offerBaz.dto.BankDTO;
+import ir.alzahra.offerBaz.dto.OfferRequestDTO;
 import ir.alzahra.offerBaz.dto.ProductDTO;
 import ir.alzahra.offerBaz.dto.searchParameter.ProductSearchParam;
 import ir.alzahra.offerBaz.enums.ProductType;
@@ -50,5 +51,6 @@ public interface IOfferFacade {
     @Transactional(rollbackFor = Exception.class)
     void editBankInfo(BankDTO bankDTO)throws BaseException;
 
-
+    @Transactional(rollbackFor = Exception.class)
+    void insertOfferRequest(OfferRequestDTO offerRequestDTO)throws BaseException;
 }

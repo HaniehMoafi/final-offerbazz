@@ -3,6 +3,7 @@ package ir.alzahra.offerBaz.facade.impl;
 import ir.alzahra.offerBaz.config.JPAConfig;
 import ir.alzahra.offerBaz.control.IOfferService;
 import ir.alzahra.offerBaz.dto.BankDTO;
+import ir.alzahra.offerBaz.dto.OfferRequestDTO;
 import ir.alzahra.offerBaz.dto.ProductDTO;
 import ir.alzahra.offerBaz.dto.searchParameter.ProductSearchParam;
 import ir.alzahra.offerBaz.enums.DtoState;
@@ -10,6 +11,7 @@ import ir.alzahra.offerBaz.exception.BaseException;
 import ir.alzahra.offerBaz.facade.IOfferFacade;
 import ir.alzahra.offerBaz.facade.mapper.MapperClass;
 import ir.alzahra.offerBaz.model.entity.BankEntity;
+import ir.alzahra.offerBaz.model.entity.OfferRequestEntity;
 import ir.alzahra.offerBaz.model.entity.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -136,5 +138,11 @@ public class OfferFacade  implements IOfferFacade {
     public void editBankInfo(BankDTO bankDTO) throws BaseException {
         BankEntity bankEntity=MapperClass.mapper(new BankEntity(),bankDTO);
         offerService.editBankInfo(bankEntity);
+    }
+
+    @Override
+    public void insertOfferRequest(OfferRequestDTO offerRequestDTO) throws BaseException {
+        OfferRequestEntity offerRequestEntity=MapperClass.mapper(new OfferRequestEntity(),offerRequestDTO);
+        offerService.insetOfferRequest(offerRequestEntity);
     }
 }

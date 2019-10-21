@@ -1,11 +1,16 @@
 package ir.alzahra.offerBaz.model.entity;
 
+import ir.alzahra.offerBaz.dto.ProfileDTO;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RevisionNumber;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @Author: zahra soltaninejad
@@ -165,22 +170,25 @@ public abstract class BaseEntity implements Serializable {
     /**
      * Sets creation by at.
      */
-    /*@PrePersist
+   @PrePersist
     public void setCreationByAt() {
-        ProfileDto user = (ProfileDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        this.createdBy = user.getUserName();
-        this.createdAt = new Date();
+
+        if(!Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
+            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            this.createdBy = user.getUsername();
+            this.createdAt = new Date();
+        }
     }
 
-    *//**
+    /**
      * Sets change by at.
-     *//*
+     */
     @PreUpdate
     public void setChangeByAt() {
-        ProfileDto user = (ProfileDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        this.updatedBy = user.getUserName();
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        this.updatedBy = user.getUsername();
         this.updatedAt = new Date();
-    }*/
+    }
 
 }
 

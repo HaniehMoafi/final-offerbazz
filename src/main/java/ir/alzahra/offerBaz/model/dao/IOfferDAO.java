@@ -1,8 +1,11 @@
 package ir.alzahra.offerBaz.model.dao;
 
+import ir.alzahra.offerBaz.model.entity.OfferRequestEntity;
+
 /**
- * @Author: Mobina Pak
+ * @Author: zahra soltaninejad
  * @Date: 5/3/2019
  **/
-public interface IOfferDAO {
+public interface IOfferDAO  extends GenericDao<OfferRequestEntity>{
+
 }

@@ -1,9 +1,6 @@
 package ir.alzahra.offerBaz.proxy.impl;
 
-import ir.alzahra.offerBaz.dto.BankDTO;
-import ir.alzahra.offerBaz.dto.MultiWrapperDto;
-import ir.alzahra.offerBaz.dto.ProductDTO;
-import ir.alzahra.offerBaz.dto.ResponseDTO;
+import ir.alzahra.offerBaz.dto.*;
 import ir.alzahra.offerBaz.dto.searchParameter.ProductSearchParam;
 import ir.alzahra.offerBaz.enums.ProductType;
 import ir.alzahra.offerBaz.exception.BaseException;
@@ -28,8 +25,7 @@ public class OfferProxy extends BaseProxy implements IOfferProxy {
 
     @Override
     public void insertBank(BankDTO bankDTO)throws BaseException {
-        callRest(RestURIConstants.MAIN_URI+"/bank/insertBank"
-                , bankDTO);
+        callRest(RestURIConstants.MAIN_URI+"/bank/insertBank", bankDTO);
     }
 
     @Override
@@ -95,6 +91,11 @@ public class OfferProxy extends BaseProxy implements IOfferProxy {
     public void deleteBank(BankDTO bankDTO) throws BaseException {
         callRest(RestURIConstants.MAIN_URI + "/bank/deleteBank", bankDTO);
 
+    }
+
+    @Override
+    public void insertRequest(OfferRequestDTO offerRequestDTO) throws BaseException {
+        callRest(RestURIConstants.MAIN_URI+"/request/insertRequest", offerRequestDTO);
     }
 
 }

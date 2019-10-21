@@ -5,8 +5,10 @@ import ir.alzahra.offerBaz.control.IOfferCheckService;
 import ir.alzahra.offerBaz.control.IOfferService;
 import ir.alzahra.offerBaz.exception.BaseException;
 import ir.alzahra.offerBaz.model.dao.IBankDao;
+import ir.alzahra.offerBaz.model.dao.IOfferDAO;
 import ir.alzahra.offerBaz.model.dao.IProductDao;
 import ir.alzahra.offerBaz.model.entity.BankEntity;
+import ir.alzahra.offerBaz.model.entity.OfferRequestEntity;
 import ir.alzahra.offerBaz.model.entity.ProductEntity;
 import ir.alzahra.offerBaz.notify.CustomSpringEvent;
 import ir.alzahra.offerBaz.notify.NotificationType;
@@ -36,6 +38,9 @@ public class OfferServiceImpl implements IOfferService {
 
     @Autowired
     private IOfferCheckService offerCheckService;
+
+    @Autowired
+    private IOfferDAO offerDao;
 
     private String finalcode;
 
@@ -160,6 +165,13 @@ public class OfferServiceImpl implements IOfferService {
     public void editBankInfo(BankEntity bankEntity) throws BaseException {
         bankDao.update(bankEntity);
         applicationEventPublisher.notify("bank.edit.success", NotificationType.Info);
+
+    }
+
+    @Override
+    public void insetOfferRequest(OfferRequestEntity offerRequestEntity) throws BaseException {
+        offerDao.insert(offerRequestEntity);
+        applicationEventPublisher.notify("request.insert.success", NotificationType.Info);
 
     }
 }
