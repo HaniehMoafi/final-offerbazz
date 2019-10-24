@@ -15,8 +15,8 @@
         <title>نمایش بانک</title>
 
 
-        <h:outputStylesheet library="css" name="style.css"/>
-
+        <h:outputStylesheet library="css" name="menu.css"/>
+        <ui:include src="/menu.xhtml" />
 
     </h:head>
     <h:body style="direction: rtl">
@@ -28,6 +28,7 @@
 
                 <p:fieldset legend="جستجوی بانک">
                     <p:panel styleClass="searchBox">
+
                         <p:panelGrid id="productAdd" columns="4" columnsWidth="2,4,2,4" styleClass="ui-noborder">
                             <p:outputLabel value="نام بانک:" style="margin-left: 5px;"/>
                             <p:inputText value="#{viewBankViewBean.bankName}" id="nameSearch"/>
