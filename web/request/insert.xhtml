@@ -31,16 +31,24 @@
                 <p:fieldset legend="فرم ثبت درخواست" style="margin-bottom:20px" >
 
                     <p:panelGrid id="productAdd" columns="2" columnsWidth="2,4" styleClass="ui-noborder" >
-                        <p:outputLabel value="نام درخواست:"/>
+                        <p:outputLabel value="* نام درخواست:"/>
                         <p:inputText  value="#{requestBean.offerRequestDTO.name}"/>
+                        <p:outputLabel value="* واحد پول:"/>
 
-                        <p:outputLabel value="میزان حقوق در ماه :"/>
+                        <h:selectOneMenu  value="#{requestBean.offerRequestDTO.unitMoney}" style="width:200px" filter="true" filterMatchMode="contains">
+                            <f:selectItems
+                                    value="#{requestBean.unitMonies}"
+                                    var="unitMoney"
+                                    itemLabel="#{unitMoney.value}" itemValue="#{unitMoney}"/>
+
+                        </h:selectOneMenu>
+                        <p:outputLabel value="* میزان حقوق در ماه :"/>
                         <p:inputText  value="#{requestBean.offerRequestDTO.salaryPerMonth}"/>
 
                         <p:outputLabel value="میزان پس انداز:"/>
                         <p:inputText  value="#{requestBean.offerRequestDTO.savedMoney}"/>
 
-                        <p:outputLabel value="* توضیحات:"/>
+                        <p:outputLabel value=" توضیحات:"/>
                         <p:inputTextarea rows="6" cols="33" value="#{requestBean.offerRequestDTO.description}"/>
                     </p:panelGrid>
                     <p:spacer height="5"/>
@@ -54,6 +62,40 @@
 
 
 
+                </p:fieldset>
+
+                <p:fieldset legend="پیشنهادات" style="margin-bottom:20px" >
+                    <p:dataTable style="margin-bottom: 10px" id="foundBankTbl"
+                                 value="#{requestBean.offerRequestDTO.offers}"
+                                 var="offers" selectionMode="single"
+                                 rowKey="#{offers.hashCode()}"
+                                 selection="#{requestBean.selectedOffer}"
+                                 emptyMessage="سطری برای نمایش وجود ندارد"
+                                 rowIndexVar="rowIndex"
+                                 rows="10"
+                                 widgetVar="foundBankTbl">
+                        <f:facet name="header">
+                            <h:outputText value="نتایج جستجو"/>
+                        </f:facet>
+                        <p:column headerText="ردیف" width="60">
+                            <h:outputText value="#{rowIndex+1}"/>
+                        </p:column>
+                        <p:column headerText="نام محصول">
+                            <h:outputText value="#{offers.name}"/>
+                        </p:column>
+                        <p:column headerText="توضیحات محصول">
+                            <h:outputText value="#{offers.description}"/>
+                        </p:column>
+                        <p:column headerText="محصول">
+                            <center>
+                                <p:commandButton value="محصول " id="nonAjax"
+                                                 actionListener="#{requestBean.redirectViewProduct}"
+                                                 ajax="true">
+
+                                </p:commandButton>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
                 </p:fieldset>
             </h:form>
         </p:fieldset>

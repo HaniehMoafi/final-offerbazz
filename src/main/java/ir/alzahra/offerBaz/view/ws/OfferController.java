@@ -129,9 +129,12 @@ public class OfferController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/request/insertRequest")
-    ResponseEntity<ResponseDTO> insertOfferRequest(@RequestBody OfferRequestDTO offerRequestDTO) throws BaseException {
-        offerFacade.insertOfferRequest(offerRequestDTO);
-        return new ResponseEntity(HttpStatus.OK);
+    ResponseEntity<ResponseDTO<OfferRequestDTO>> insertOfferRequest(@RequestBody OfferRequestDTO offerRequestDTO) throws BaseException {
+        ResponseDTO responseDto = new ResponseDTO();
+
+        responseDto.setResponse(offerFacade.insertOfferRequest(offerRequestDTO));
+        responseDto.setResponseStatus(ResponseStatus.OK);
+        return new ResponseEntity<ResponseDTO<OfferRequestDTO>>(responseDto, HttpStatus.OK);
 
     }
 

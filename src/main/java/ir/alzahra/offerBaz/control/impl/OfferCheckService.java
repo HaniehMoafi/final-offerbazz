@@ -3,6 +3,7 @@ package ir.alzahra.offerBaz.control.impl;
 import ir.alzahra.offerBaz.control.IOfferCheckService;
 import ir.alzahra.offerBaz.exception.BaseException;
 import ir.alzahra.offerBaz.model.entity.BankEntity;
+import ir.alzahra.offerBaz.model.entity.OfferRequestEntity;
 import ir.alzahra.offerBaz.model.entity.ProductEntity;
 import ir.alzahra.offerBaz.notify.CustomSpringEvent;
 import ir.alzahra.offerBaz.notify.NotificationType;
@@ -40,5 +41,20 @@ public class OfferCheckService implements IOfferCheckService {
             throw new BaseException("product.insert.nullName");
         if (Objects.isNull(productEntity.getDescription())|| Objects.equals(productEntity.getDescription(),""))
             throw new BaseException("product.insert.nullDescription");
+    }
+
+    @Override
+    public void checkRequest(OfferRequestEntity offerRequestEntity) throws BaseException {
+        if (Objects.isNull(offerRequestEntity))
+            throw new BaseException("request.insert.null");
+        if (Objects.isNull(offerRequestEntity.getName()) || Objects.equals(offerRequestEntity.getName(),""))
+            throw new BaseException("request.insert.nullName");
+        if (Objects.isNull(offerRequestEntity.getSalaryPerMonth()) || Objects.equals(offerRequestEntity.getSalaryPerMonth(),""))
+            throw new BaseException("request.insert.nullSalary");
+        if (Objects.isNull(offerRequestEntity.getSavedMoney()) || Objects.equals(offerRequestEntity.getSavedMoney(),""))
+            throw new BaseException("request.insert.nullSavedMoney");
+        if (Objects.isNull(offerRequestEntity.getUnitMoney()) || Objects.equals(offerRequestEntity.getUnitMoney(),""))
+            throw new BaseException("request.insert.nullUnitMoney");
+
     }
 }

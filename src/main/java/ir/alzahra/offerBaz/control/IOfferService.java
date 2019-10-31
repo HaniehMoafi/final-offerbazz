@@ -46,5 +46,5 @@ public interface IOfferService {
 
     void editBankInfo(BankEntity bankEntity)throws BaseException;
 
-    void insetOfferRequest(OfferRequestEntity offerRequestEntity)throws BaseException;
+    OfferRequestEntity insetOfferRequest(OfferRequestEntity offerRequestEntity)throws BaseException;
 }

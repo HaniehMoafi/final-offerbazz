@@ -52,5 +52,5 @@ public interface IOfferFacade {
     void editBankInfo(BankDTO bankDTO)throws BaseException;
 
     @Transactional(rollbackFor = Exception.class)
-    void insertOfferRequest(OfferRequestDTO offerRequestDTO)throws BaseException;
+    OfferRequestDTO insertOfferRequest(OfferRequestDTO offerRequestDTO)throws BaseException;
 }

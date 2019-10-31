@@ -92,4 +92,11 @@ public class ProductDao extends AbstractDAO implements IProductDao {
        }else return true;
 
     }
+
+    @Override
+    public List<ProductEntity> getAllProduct() throws BaseException {
+        String queryStatement="select * from PRODUCT p";
+        Query query=entityManager.createNativeQuery(queryStatement,ProductEntity.class);
+        return query.getResultList();
+    }
 }

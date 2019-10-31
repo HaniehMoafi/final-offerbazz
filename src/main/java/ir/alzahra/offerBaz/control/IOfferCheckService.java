@@ -2,6 +2,7 @@ package ir.alzahra.offerBaz.control;
 
 import ir.alzahra.offerBaz.exception.BaseException;
 import ir.alzahra.offerBaz.model.entity.BankEntity;
+import ir.alzahra.offerBaz.model.entity.OfferRequestEntity;
 import ir.alzahra.offerBaz.model.entity.ProductEntity;
 
 /**
@@ -14,4 +15,6 @@ public interface IOfferCheckService {
     boolean checkInsertBank(BankEntity bank)throws BaseException;
 
     void checkUpdateProduct(ProductEntity productEntity)throws BaseException;
+
+    void checkRequest(OfferRequestEntity offerRequestEntity)throws BaseException ;
 }

@@ -94,8 +94,10 @@ public class OfferProxy extends BaseProxy implements IOfferProxy {
     }
 
     @Override
-    public void insertRequest(OfferRequestDTO offerRequestDTO) throws BaseException {
-        callRest(RestURIConstants.MAIN_URI+"/request/insertRequest", offerRequestDTO);
-    }
+    public OfferRequestDTO insertRequest(OfferRequestDTO offerRequestDTO) throws BaseException {
+      return   callRest(RestURIConstants.MAIN_URI+"/request/insertRequest", offerRequestDTO, new ParameterizedTypeReference<ResponseDTO<OfferRequestDTO>>() {
+        });}
+
+
 
 }

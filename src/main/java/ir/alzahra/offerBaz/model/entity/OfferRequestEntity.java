@@ -3,6 +3,7 @@ package ir.alzahra.offerBaz.model.entity;
 import ir.alzahra.offerBaz.dto.OfferDTO;
 import ir.alzahra.offerBaz.dto.ProfileDTO;
 import ir.alzahra.offerBaz.dto.UserDTO;
+import ir.alzahra.offerBaz.enums.UnitMoney;
 import ir.alzahra.offerBaz.facade.mapper.MapTo;
 
 import javax.persistence.*;
@@ -43,6 +44,10 @@ public class OfferRequestEntity extends BaseEntity {
     @JoinColumn(name = "OFFER_REQUEST_ID")
     @MapTo(targetEntity = OfferDTO.class)
     private List<OfferEntity> offers;
+
+    @Column(name = "UNIT_MONEY")
+    @Enumerated(EnumType.STRING)
+    private UnitMoney unitMoney;
 
 /*    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PROFILE_ID")
@@ -110,7 +115,14 @@ public class OfferRequestEntity extends BaseEntity {
         this.offers = offers;
     }
 
-/*    public ProfileEntity getProfile() {
+    public UnitMoney getUnitMoney() {
+        return unitMoney;
+    }
+
+    public void setUnitMoney(UnitMoney unitMoney) {
+        this.unitMoney = unitMoney;
+    }
+    /*    public ProfileEntity getProfile() {
         return profile;
     }
 

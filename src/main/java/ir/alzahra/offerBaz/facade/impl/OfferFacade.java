@@ -141,8 +141,9 @@ public class OfferFacade  implements IOfferFacade {
     }
 
     @Override
-    public void insertOfferRequest(OfferRequestDTO offerRequestDTO) throws BaseException {
+    public OfferRequestDTO insertOfferRequest(OfferRequestDTO offerRequestDTO) throws BaseException {
         OfferRequestEntity offerRequestEntity=MapperClass.mapper(new OfferRequestEntity(),offerRequestDTO);
-        offerService.insetOfferRequest(offerRequestEntity);
+        offerRequestEntity= offerService.insetOfferRequest(offerRequestEntity);
+        return MapperClass.mapper(new OfferRequestDTO(),offerRequestEntity);
     }
 }

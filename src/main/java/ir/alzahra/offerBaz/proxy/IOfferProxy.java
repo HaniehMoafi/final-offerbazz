@@ -40,5 +40,5 @@ public interface IOfferProxy {
 
     void deleteBank(BankDTO bankDTO)throws BaseException;
 
-    void insertRequest(OfferRequestDTO offerRequestDTO) throws BaseException;
+    OfferRequestDTO insertRequest(OfferRequestDTO offerRequestDTO) throws BaseException;
 }

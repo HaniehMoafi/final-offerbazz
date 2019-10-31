@@ -1,5 +1,6 @@
 package ir.alzahra.offerBaz.dto;
 
+import ir.alzahra.offerBaz.enums.UnitMoney;
 import ir.alzahra.offerBaz.facade.mapper.MapTo;
 import ir.alzahra.offerBaz.model.entity.OfferEntity;
 import ir.alzahra.offerBaz.model.entity.ProfileEntity;
@@ -22,6 +23,7 @@ public class OfferRequestDTO extends BaseDto {
     private String salaryPerMonth;
     private String savedMoney;
     private Date submitDate;
+    private UnitMoney unitMoney;
 /*    @MapTo(targetEntity = ProfileEntity.class)
     private ProfileDTO profile;*/
 //    @MapTo(targetEntity = UserEntity.class)
@@ -83,7 +85,15 @@ public class OfferRequestDTO extends BaseDto {
         this.submitDate = submitDate;
     }
 
-/*    public ProfileDTO getProfile() {
+    public UnitMoney getUnitMoney() {
+        return unitMoney;
+    }
+
+    public void setUnitMoney(UnitMoney unitMoney) {
+        this.unitMoney = unitMoney;
+    }
+
+    /*    public ProfileDTO getProfile() {
         return profile;
     }
 

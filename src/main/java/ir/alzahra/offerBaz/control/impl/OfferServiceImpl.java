@@ -8,6 +8,7 @@ import ir.alzahra.offerBaz.model.dao.IBankDao;
 import ir.alzahra.offerBaz.model.dao.IOfferDAO;
 import ir.alzahra.offerBaz.model.dao.IProductDao;
 import ir.alzahra.offerBaz.model.entity.BankEntity;
+import ir.alzahra.offerBaz.model.entity.OfferEntity;
 import ir.alzahra.offerBaz.model.entity.OfferRequestEntity;
 import ir.alzahra.offerBaz.model.entity.ProductEntity;
 import ir.alzahra.offerBaz.notify.CustomSpringEvent;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -169,9 +172,32 @@ public class OfferServiceImpl implements IOfferService {
     }
 
     @Override
-    public void insetOfferRequest(OfferRequestEntity offerRequestEntity) throws BaseException {
+    public OfferRequestEntity insetOfferRequest(OfferRequestEntity offerRequestEntity) throws BaseException {
+
+        offerCheckService.checkRequest(offerRequestEntity);
+        offerRequestEntity.setOffers(findOffers(offerRequestEntity));
         offerDao.insert(offerRequestEntity);
         applicationEventPublisher.notify("request.insert.success", NotificationType.Info);
+        return offerRequestEntity;
 
+    }
+
+    private List<OfferEntity> findOffers(OfferRequestEntity offerRequestEntity)throws BaseException {
+        List<OfferEntity> offers = new ArrayList<>();
+        //TODO
+        List<ProductEntity> products = productDao.getAllProduct();
+        if (products.size()==0)
+            throw new BaseException("product.find.empty");
+        int counter = 1;
+        for (ProductEntity p:products
+             ) {
+           OfferEntity o= new OfferEntity();
+           o.setName("Offer"+counter);
+           o.setDescription("offerDescription"+1);
+           o.setProduct(p);
+            offers.add(o);
+            counter++;
+        }
+        return offers;
     }
 }

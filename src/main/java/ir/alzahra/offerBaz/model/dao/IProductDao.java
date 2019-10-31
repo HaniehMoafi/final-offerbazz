@@ -15,10 +15,14 @@ public interface IProductDao extends GenericDao<ProductEntity> {
      ProductEntity findProductByCode(String trackingCode)throws BaseException;
 
     List<ProductEntity> searchProductByParam(Long param)throws BaseException;
+
     Long getCountOfRecord()throws BaseException;
+
     ProductEntity findByName(String name)throws BaseException;
 
     boolean duplicateName(ProductEntity p)throws BaseException;
+
+    List<ProductEntity> getAllProduct()throws BaseException;
 //    void initializeDatabase(String s) throws BaseException;
 
 //    Integer getUniqueNumber() throws BaseException;
